@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+}
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+tasks.register('runJDepend', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'org.example.Main'
+}
+
+tasks.register('runJDependUI', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'org.example.RunJDependUI'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
